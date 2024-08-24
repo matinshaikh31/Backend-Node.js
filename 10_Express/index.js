@@ -18,20 +18,6 @@ app.listen(3000,()=>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // //usinh http in build mwthod of node
 // const http = require("http");
 
