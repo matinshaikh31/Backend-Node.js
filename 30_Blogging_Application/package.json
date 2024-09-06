@@ -1,0 +1,22 @@
+{
+  "name": "30_blogging_application",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm start",
+    "dev": "nodemon start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mongoose": "^8.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
