@@ -14,7 +14,6 @@ const userSchema = new Schema(
     },
     salt: {
       type: String,
-
     },
     password: {
       type: String,
@@ -36,15 +35,27 @@ userSchema.pre("save", function (next) {
   const user = this;
   if (!user.isModified("password")) return;
 
-  const salt = randomBytes(16).toString();
+  const salt =randomBytes(16).toString();
   const hasedPassword = createHmac("sha256", salt)
     .update(user.password)
-    .digest();
+    .digest("hex");
 
-    this.salt = salt;
-    this.password =hasedPassword
+  this.salt = salt;
+  this.password = hasedPassword;
 
-    next()
+  next();
+});
+userSchema.static("matchPassword", async function (email, password) {
+  const user = await this.findOne({ email });
+  if (!user) throw new Error("User Not Found");
+
+  const salt = user.salt;
+  const hasedPassword = user.password;
+
+  const userProvideHased = createHmac("sha256", salt).update(password).digest("hex");
+
+  if (hasedPassword !== userProvideHased) throw new Error("incorrect Password");
+  return user;
 });
 const User = model("user", userSchema);
 
